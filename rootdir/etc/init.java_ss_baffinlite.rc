@@ -5,6 +5,11 @@ import init.log.rc
 on early-init
     mkdir /efs 0771 radio system
 
+    # KSM
+    write /sys/kernel/mm/ksm/sleep_millisecs 500
+    write /sys/kernel/mm/ksm/deferred_timer 1
+    write /sys/kernel/mm/ksm/run 1
+
 on init
     # See storage config details at http://source.android.com/tech/storage/
     mkdir /mnt/shell/emulated 0700 shell shell
