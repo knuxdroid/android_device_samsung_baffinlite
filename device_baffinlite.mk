@@ -51,6 +51,12 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     charger_res_images
 
+# Insecure ADBD
+ADDITIONAL_DEFAULT_PROPERTIES += \
+    ro.adb.secure=3 \
+    persist.sys.root_access=3 \
+    ro.debuggable=1
+
 # Ramdisk
 PRODUCT_PACKAGES += \
     init.java_ss_baffinlite.rc \
