@@ -278,10 +278,6 @@ on boot
     chmod 0777 /dev/s5p-smem
     rm /data/app/tlcd_sock
 
-    # phone
-    setprop ro.telephony.call_ring.multiple 0
-
-
     # Enable dithering algorithm
     setprop fb.force.dithering 1
 
@@ -332,6 +328,9 @@ on boot
 #    chown system system /sys/class/gpio/gpio56/direction
 #    write /sys/class/gpio/gpio56/value 0
 #    write /sys/class/gpio/gpio56/direction out
+
+    # SEC_PRODUCT_FEATURE_COMMON_USE_MULTISIM
+    setprop ro.multisim.simslotcount 1
 
 on fs
     mount_all /fstab.java_ss_baffinlite
