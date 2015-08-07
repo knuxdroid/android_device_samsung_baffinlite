@@ -111,7 +111,7 @@ MALLOC_IMPL := dlmalloc
 
 # SELinux
 BOARD_SEPOLICY_DIRS += \
-    $(LOCAL_PATH)/sepolicy
+    device/samsung/baffinlite/sepolicy
 
 BOARD_SEPOLICY_UNION += \
     file_contexts \
