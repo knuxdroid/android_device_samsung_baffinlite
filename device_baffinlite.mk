@@ -51,12 +51,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     charger_res_images
 
-# Insecure ADBD
-ADDITIONAL_DEFAULT_PROPERTIES += \
-    ro.adb.secure=3 \
-    persist.sys.root_access=3 \
-    ro.debuggable=1
-
 # Ramdisk
 PRODUCT_PACKAGES += \
     init.java_ss_baffinlite.rc \
@@ -64,6 +58,9 @@ PRODUCT_PACKAGES += \
     init.log.rc \
     ueventd.java_ss_baffinlite.rc \
     fstab.java_ss_baffinlite
+
+# System Properties
+-include $(LOCAL_PATH)/system_prop.mk
 
 # Wi-Fi
 PRODUCT_PACKAGES += \
@@ -98,46 +95,6 @@ PRODUCT_COPY_FILES += \
 # viewed on the current OS.
 PRODUCT_PACKAGES += \
     libskia_legacy
-
-# These are the hardware-specific settings that are stored in system properties.
-# Note that the only such settings should be the ones that are too low-level to
-# be reachable from resources or other mechanisms.
-PRODUCT_PROPERTY_OVERRIDES += \
-    wifi.interface=wlan0 \
-    mobiledata.interfaces=rmnet0 \
-    ro.telephony.ril_class=SamsungBCMRIL \
-    ro.zygote.disable_gl_preload=true \
-    ro.cm.hardware.cabc=/sys/class/mdnie/mdnie/cabc \
-    ro.telephony.call_ring.multiple=0 \
-    ro.telephony.call_ring=0
-
-# enable Google-specific location features,
-# like NetworkLocationProvider and LocationCollector
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.com.google.locationfeatures=1 \
-    ro.com.google.networklocation=1
-
-# Extended JNI checks
-# The extended JNI checks will cause the system to run more slowly, but they can spot a variety of nasty bugs 
-# before they have a chance to cause problems.
-# Default=true for development builds, set by android buildsystem.
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.kernel.android.checkjni=0 \
-    dalvik.vm.checkjni=false
-
-# MTP
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    persist.sys.usb.config=mtp
-
-# Storage
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.sys.isUsbOtgEnabled=true
-
-# Override phone-hdpi-512-dalvik-heap to match value on stock
-# - helps pass CTS com.squareup.okhttp.internal.spdy.Spdy3Test#tooLargeDataFrame)
-# (property override must come before included property)
-PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.heapgrowthlimit=56m
 
 # Dalvik heap config
 include frameworks/native/build/phone-hdpi-512-dalvik-heap.mk
