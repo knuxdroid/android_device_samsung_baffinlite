@@ -32,6 +32,6 @@ debug.hwui.render_dirty_regions=false
 brcm.graphics.async_errors=true
 brcm.hwc.no-hdmi-trans=1
 
-ro.ril.hsxpa=1
+ro.ril.hsxpa=2
 ro.ril.gprsclass=10
 ro.com.google.gmsversion=4.1_r4
