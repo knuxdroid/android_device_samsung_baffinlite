@@ -3,6 +3,8 @@ USE_CAMERA_STUB := true
 # inherit from the proprietary version
 -include vendor/samsung/baffinlite/BoardConfigVendor.mk
 
+LOCAL_PATH := device/samsung/baffinlite
+
 TARGET_ARCH := arm
 TARGET_NO_BOOTLOADER := true
 TARGET_BOARD_PLATFORM := java
@@ -41,8 +43,8 @@ BOARD_SUPPRESS_EMMC_WIPE := true
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/baffinlite/bluetooth
-BOARD_BLUEDROID_VENDOR_CONF := device/samsung/baffinlite/configs/libbt_vndcfg.txt
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
+BOARD_BLUEDROID_VENDOR_CONF := $(LOCAL_PATH)/configs/libbt_vndcfg.txt
 
 # Connectivity - Wi-Fi
 BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
@@ -69,7 +71,7 @@ BOARD_USES_SKTEXTBOX := true
 
 # Hardware rendering
 USE_OPENGL_RENDERER := true
-BOARD_EGL_CFG := device/samsung/baffinlite/configs/egl.cfg
+BOARD_EGL_CFG := $(LOCAL_PATH)/configs/egl.cfg
 BOARD_USE_MHEAP_SCREENSHOT := true
 BOARD_EGL_WORKAROUND_BUG_10194508 := true
 TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
@@ -84,10 +86,10 @@ BOARD_CHARGER_ENABLE_SUSPEND := true
 BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
 
 # RIL
-BOARD_RIL_CLASS := ../../../device/samsung/baffinlite/ril/
+BOARD_RIL_CLASS := ../../../$(LOCAL_PATH)/ril/
 
 # Recovery
-TARGET_RECOVERY_FSTAB := device/samsung/baffinlite/rootdir/etc/fstab.java_ss_baffinlite
+TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.java_ss_baffinlite
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/class/android_usb/android0/f_mass_storage/lun%d/file"
 TARGET_RECOVERY_PIXEL_FORMAT := ABGR_8888
 TARGET_RECOVERY_DENSITY := hdpi
@@ -96,10 +98,10 @@ TARGET_RECOVERY_DENSITY := hdpi
 BOARD_HAL_STATIC_LIBRARIES := libhealthd.java
 
 # CMHW
-BOARD_HARDWARE_CLASS := hardware/samsung/cmhw/ device/samsung/baffinlite/cmhw/
+BOARD_HARDWARE_CLASS := hardware/samsung/cmhw/ $(LOCAL_PATH)/cmhw/
 
 # GPS
-TARGET_SPECIFIC_HEADER_PATH := device/samsung/baffinlite/include
+TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
 # Compat
 TARGET_USES_LOGD := false
@@ -109,7 +111,7 @@ MALLOC_IMPL := dlmalloc
 
 # SELinux
 BOARD_SEPOLICY_DIRS += \
-    device/samsung/baffinlite/sepolicy
+    $(LOCAL_PATH)/sepolicy
 
 BOARD_SEPOLICY_UNION += \
     file_contexts \

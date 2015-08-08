@@ -8,23 +8,23 @@ $(call inherit-product-if-exists, vendor/samsung/baffinlite/baffinlite-vendor.mk
 # PRODUCT_AAPT_CONFIG := normal hdpi
 # PRODUCT_AAPT_PREF_CONFIG := hdpi
 
-DEVICE_PACKAGE_OVERLAYS += device/samsung/baffinlite/overlay
+DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
-    device/samsung/baffinlite/configs/media_codecs.xml:system/etc/media_codecs.xml \
-    device/samsung/baffinlite/configs/media_profiles.xml:system/etc/media_profiles.xml \
-    device/samsung/baffinlite/configs/audio_policy.conf:system/etc/audio_policy.conf
+    $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
+    $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml \
+    $(LOCAL_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf
 
 # Prebuilt kl keymaps
 PRODUCT_COPY_FILES += \
-    device/samsung/baffinlite/keylayouts/AVRCP.kl:system/usr/keylayout/VRCP.kl \
-    device/samsung/baffinlite/keylayouts/bcm_headset.kl:system/usr/keylayout/bcm_headset.kl \
-    device/samsung/baffinlite/keylayouts/bcm_keypad_v2.kl:system/usr/keylayout/bcm_keypad_v2.kl \
-    device/samsung/baffinlite/keylayouts/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
-    device/samsung/baffinlite/keylayouts/samsung-keypad.kl:system/usr/keylayout/samsung-keypad.kl
+    $(LOCAL_PATH)/keylayouts/AVRCP.kl:system/usr/keylayout/VRCP.kl \
+    $(LOCAL_PATH)/keylayouts/bcm_headset.kl:system/usr/keylayout/bcm_headset.kl \
+    $(LOCAL_PATH)/keylayouts/bcm_keypad_v2.kl:system/usr/keylayout/bcm_keypad_v2.kl \
+    $(LOCAL_PATH)/keylayouts/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
+    $(LOCAL_PATH)/keylayouts/samsung-keypad.kl:system/usr/keylayout/samsung-keypad.kl
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
