@@ -24,7 +24,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/keylayouts/bcm_headset.kl:system/usr/keylayout/bcm_headset.kl \
     $(LOCAL_PATH)/keylayouts/bcm_keypad_v2.kl:system/usr/keylayout/bcm_keypad_v2.kl \
     $(LOCAL_PATH)/keylayouts/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
-    $(LOCAL_PATH)/keylayouts/samsung-keypad.kl:system/usr/keylayout/samsung-keypad.kl
+    $(LOCAL_PATH)/keylayouts/samsung-keypad.kl:system/usr/keylayout/samsung-keypad.kl \
+    $(LOCAL_PATH)/keylayouts/sec_touchscreen.kl:system/usr/keylayout/sec_touchscreen.kl
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
