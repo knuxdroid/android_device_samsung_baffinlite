@@ -66,9 +66,6 @@ WIFI_BAND                        := 802_11_ABG
 # Wi-Fi Tethering
 BOARD_HAVE_SAMSUNG_WIFI := true
 
-# SkTextBox for libtvout
-BOARD_USES_SKTEXTBOX := true
-
 # Hardware rendering
 USE_OPENGL_RENDERER := true
 BOARD_EGL_CFG := $(LOCAL_PATH)/configs/egl.cfg
