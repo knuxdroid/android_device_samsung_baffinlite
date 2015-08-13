@@ -339,6 +339,9 @@ on fs
     # Make directory for storing sales code
     mkdir /efs/imei 0775 radio system 
 
+    # Activate ZRAM
+    swapon_all fstab.java_ss_baffinlite
+
 on post-fs
     restorecon_recursive /efs
     chown radio system /efs
