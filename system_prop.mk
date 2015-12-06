@@ -4,7 +4,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.zygote.disable_gl_preload
+    ro.zygote.disable_gl_preload=true
 
 # GPS
 PRODUCT_PROPERTY_OVERRIDES += \
