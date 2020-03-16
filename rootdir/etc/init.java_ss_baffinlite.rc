@@ -44,6 +44,38 @@ on init
     # We will create our own ril-daemon service with different perm and sockets
     stop ril-daemon
 
+	# Fix Netd erroring out
+	write /proc/sys/net/ipv6/conf/default/accept_ra_rt_table 0
+	write /proc/sys/net/ipv6/conf/ip6tnl0/accept_ra_rt_table 0
+	write /proc/sys/net/ipv6/conf/lo/accept_ra_rt_table 0
+	write /proc/sys/net/ipv6/conf/rmnet0/accept_ra_rt_table 0
+	write /proc/sys/net/ipv6/conf/rmnet1/accept_ra_rt_table 0
+	write /proc/sys/net/ipv6/conf/rmnet2/accept_ra_rt_table 0
+	write /proc/sys/net/ipv6/conf/rmnet3/accept_ra_rt_table 0
+	write /proc/sys/net/ipv6/conf/rmnet4/accept_ra_rt_table 0
+	write /proc/sys/net/ipv6/conf/rmnet5/accept_ra_rt_table 0
+	write /proc/sys/net/ipv6/conf/rmnet6/accept_ra_rt_table 0
+	write /proc/sys/net/ipv6/conf/rmnet7/accept_ra_rt_table 0
+	write /proc/sys/net/ipv6/conf/rmnet8/accept_ra_rt_table 0
+	write /proc/sys/net/ipv6/conf/rmnet9/accept_ra_rt_table 0
+	write /proc/sys/net/ipv6/conf/sit0/accept_ra_rt_table 0
+	write /proc/sys/net/ipv6/conf/tunl0/accept_ra_rt_table 0
+	write /proc/sys/net/ipv6/conf/default/use_optimistic 0
+	write /proc/sys/net/ipv6/conf/ip6tnl0/use_optimistic 0
+	write /proc/sys/net/ipv6/conf/lo/use_optimistic 0
+	write /proc/sys/net/ipv6/conf/rmnet0/use_optimistic 0
+	write /proc/sys/net/ipv6/conf/rmnet1/use_optimistic 0
+	write /proc/sys/net/ipv6/conf/rmnet2/use_optimistic 0
+	write /proc/sys/net/ipv6/conf/rmnet3/use_optimistic 0
+	write /proc/sys/net/ipv6/conf/rmnet4/use_optimistic 0
+	write /proc/sys/net/ipv6/conf/rmnet5/use_optimistic 0
+	write /proc/sys/net/ipv6/conf/rmnet6/use_optimistic 0
+	write /proc/sys/net/ipv6/conf/rmnet7/use_optimistic 0
+	write /proc/sys/net/ipv6/conf/rmnet8/use_optimistic 0
+	write /proc/sys/net/ipv6/conf/rmnet9/use_optimistic 0
+	write /proc/sys/net/ipv6/conf/sit0/use_optimistic 0
+	write /proc/sys/net/ipv6/conf/tunl0/use_optimistic 0
+
 on post-fs-data
     # We will remap this as /storage/sdcard with the sdcard fuse tool
     mkdir /data/media 0770 media_rw media_rw
