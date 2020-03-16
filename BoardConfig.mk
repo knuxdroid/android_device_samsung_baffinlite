@@ -127,3 +127,7 @@ BOARD_SEPOLICY_UNION += \
     system_server.te \
     tvserver.te \
     vclmk.te \
+
+# TEMP: Disable ART preoptimization, as it takes too long
+WITH_DEXPREOPT := false
+WITH_DEXPREOPT_PIC := false
