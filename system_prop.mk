@@ -38,8 +38,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0
 
-# TEMP: Disable ART preoptimization as it takes too long
-# (it still happens on first boot, so stock apps + gapps are optimized)
+# ART
 PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.dex2oat-flags=--no-watch-dog \
-    dalvik.vm.dex2oat-filter=interpret-only
+    dalvik.vm.dex2oat-flags=--no-watch-dog
