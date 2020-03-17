@@ -20,6 +20,7 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
 # JNI
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.kernel.android.checkjni=0 \
+    ro.kernel.checkjni=0 \
     dalvik.vm.checkjni=false
 
 # MTP
@@ -36,3 +37,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Wifi
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0
+
+# ART
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.dex2oat-flags=--no-watch-dog
