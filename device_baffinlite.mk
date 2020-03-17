@@ -103,6 +103,9 @@ PRODUCT_PACKAGES += \
 # Dalvik heap config
 include frameworks/native/build/phone-hdpi-512-dalvik-heap.mk
 
+# Texture config
+include frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk
+
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
 
