@@ -14,6 +14,8 @@ TARGET_ARCH_VARIANT := armv7-a-neon
 TARGET_CPU_VARIANT := cortex-a7
 TARGET_CPU_SMP := true
 
+BOARD_VENDOR := samsung
+
 TARGET_BOOTLOADER_BOARD_NAME := java
 
 BOARD_KERNEL_CMDLINE := androidboot.selinux=permissive
@@ -104,7 +106,7 @@ BOARD_HARDWARE_CLASS := hardware/samsung/cmhw/ $(LOCAL_PATH)/cmhw/
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
 # Compat
-TARGET_USES_LOGD := false
+# TARGET_USES_LOGD := false
 
 # jemalloc causes a lot of random crash on free()
 MALLOC_IMPL := dlmalloc
