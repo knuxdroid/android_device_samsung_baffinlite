@@ -37,8 +37,6 @@ import java.util.ArrayList;
  */
 public class SamsungBCMRIL extends RIL implements CommandsInterface {
 
-    private static int sEnabledDataSimId = -1;
-
     public SamsungBCMRIL(Context context, int networkMode, int cdmaSubscription) {
         this(context, networkMode, cdmaSubscription, null);
     }
@@ -69,72 +67,6 @@ public class SamsungBCMRIL extends RIL implements CommandsInterface {
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
         send(rr);
-    }
-
-    public void setUiccSubscription(int slotId, int appIndex, int subId,
-            int subStatus, Message result) {
-        if (RILJ_LOGD) riljLog("setUiccSubscription" + slotId + " " + appIndex + " " + subId + " " + subStatus);
-
-        // Fake response (note: should be sent before mSubscriptionStatusRegistrants or
-        // SubscriptionManager might not set the readiness correctly)
-        AsyncResult.forMessage(result, 0, null);
-        result.sendToTarget();
-
-        // TODO: Actually turn off/on the radio (and don't fight with the ServiceStateTracker)
-        if (subStatus == 1 /* ACTIVATE */) {
-            // Subscription changed: enabled
-            if (mSubscriptionStatusRegistrants != null) {
-                mSubscriptionStatusRegistrants.notifyRegistrants(
-                        new AsyncResult (null, new int[] {1}, null));
-            }
-        } else if (subStatus == 0 /* DEACTIVATE */) {
-            // Subscription changed: disabled
-            if (mSubscriptionStatusRegistrants != null) {
-                mSubscriptionStatusRegistrants.notifyRegistrants(
-                        new AsyncResult (null, new int[] {0}, null));
-            }
-        }
-    }
-
-    @Override
-    public void setDataAllowed(boolean allowed, Message result) {
-        int simId = mInstanceId == null ? 0 : mInstanceId;
-        if (!allowed) {
-            // Deactivate data call. This happens when switching data SIM
-            // and the framework will wait for data call to be deactivated.
-            // Emulate this by switching to the other SIM.
-            simId = 1 - simId;
-        }
-
-        if (sEnabledDataSimId != simId) {
-            if (RILJ_LOGD) riljLog("Setting data subscription to " + simId);
-            invokeOemRilRequestBrcm((byte) 0, (byte)(0x30 + simId), result);
-            sEnabledDataSimId = simId;
-        } else {
-            if (RILJ_LOGD) riljLog("Data subscription is already set to " + simId);
-            if (result != null) {
-                AsyncResult.forMessage(result, 0, null);
-                result.sendToTarget();
-            }
-        }
-    }
-
-    @Override
-    protected void notifyRegistrantsRilConnectionChanged(int rilVer) {
-        super.notifyRegistrantsRilConnectionChanged(rilVer);
-        if (rilVer != -1) {
-            if (mInstanceId != null) {
-                // Enable simultaneous data/voice on Multi-SIM
-                invokeOemRilRequestBrcm((byte) 3, (byte) 1, null);
-            } else {
-                // Set data subscription to allow data in either SIM slot when using single SIM mode
-                setDataAllowed(true, null);
-            }
-        }
-    }
-
-    private void invokeOemRilRequestBrcm(byte key, byte value, Message response) {
-        invokeOemRilRequestRaw(new byte[] { 'B', 'R', 'C', 'M', key, value }, response);
     }
 
     protected RILRequest
