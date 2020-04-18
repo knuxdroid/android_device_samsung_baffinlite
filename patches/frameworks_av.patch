@@ -50,7 +50,7 @@ index f5a6fbd..b780128 100644
          err = setMinBufferSize(kPortIndexInput, 8192);  // XXX
      }
 +// JAVA's OMX fail to set a reasonable default size from width and height
-+#ifdef JAVA_HWC
++#ifdef CAPRI_HWC
 +    else if (!strncmp(mComponentName.c_str(), "OMX.BRCM.vc4.decoder.", 21)) {
 +        int32_t width;
 +        int32_t height;
@@ -73,7 +73,7 @@ index afe4b5c..37e8ed6 100644
          setMinBufferSize(kPortIndexInput, (OMX_U32)maxInputSize);
      }
 +// JAVA's OMX fail to set a reasonable default size from width and height
-+#ifdef JAVA_HWC
++#ifdef CAPRI_HWC
 +    else if (!strncmp(mComponentName, "OMX.BRCM.vc4.decoder.", 21)) {
 +        int32_t width;
 +        int32_t height;
@@ -106,7 +106,7 @@ index b780128..1214eed 100644
                  mNode, OMX_IndexParamPortDefinition, &def, sizeof(def)),
               (status_t)OK);
 
-+#ifdef JAVA_HWC
++#ifdef CAPRI_HWC
 +    if (strncmp(mComponentName.c_str(), "OMX.BRCM.vc4.encoder.", 21) != 0)
 +        // Skip checking on vc4 encoder. It will return the incorrect
 +        // port index, but correct parameters.
@@ -134,7 +134,7 @@ index 1214eed..7c94a75 100644
 +++ b/media/libstagefright/ACodec.cpp
 @@ -1916,13 +1916,9 @@ status_t ACodec::configureCodec(
  // JAVA's OMX fail to set a reasonable default size from width and height
- #ifdef JAVA_HWC
+ #ifdef CAPRI_HWC
      else if (!strncmp(mComponentName.c_str(), "OMX.BRCM.vc4.decoder.", 21)) {
 -        int32_t width;
 -        int32_t height;
@@ -173,7 +173,7 @@ index 25225b0..7da83ad 100644
      audio_hw_device_t *inHwHal = inHwDev->hwDevice();
      audio_stream_in_t *inStream = NULL;
 +
-+#ifdef JAVA_HWC
++#ifdef CAPRI_HWC
 +    ALOGD("Forcing channel mask to mono on JAVA");
 +    halconfig.channel_mask = AUDIO_CHANNEL_IN_MONO;
 +#endif
@@ -204,7 +204,7 @@ index 7c94a75..b9be274 100644
      // This check was present in KitKat.
      if (def.nBufferCountActual < def.nBufferCountMin + *minUndequeuedBuffers) {
  #endif
-+#ifdef JAVA_HWC
++#ifdef CAPRI_HWC
 +    for (OMX_U32 extraBuffers = 1; /* condition inside loop */; extraBuffers--) {
 +#else
      for (OMX_U32 extraBuffers = 2 + 1; /* condition inside loop */; extraBuffers--) {
@@ -220,7 +220,7 @@ index 37e8ed6..2fa70a8 100644
      // This check was present in KitKat.
      if (def.nBufferCountActual < def.nBufferCountMin + minUndequeuedBufs) {
  #endif
-+#ifdef JAVA_HWC
++#ifdef CAPRI_HWC
 +    for (OMX_U32 extraBuffers = 1; /* condition inside loop */; extraBuffers--) {
 +#else
      for (OMX_U32 extraBuffers = 2 + 1; /* condition inside loop */; extraBuffers--) {
@@ -234,7 +234,7 @@ index 37e8ed6..2fa70a8 100644
 From 9ad09fc641d31136f32aafd63d76a477e1c419f2 Mon Sep 17 00:00:00 2001
 From: Pawit Pornkitprasan <p.pawit@gmail.com>
 Date: Sat, 20 Dec 2014 19:09:59 +0700
-Subject: [PATCH 7/8] stagefright: JAVA_HWC: fix for screen recording
+Subject: [PATCH 7/8] stagefright: CAPRI_HWC: fix for screen recording
 ---
  media/libstagefright/omx/GraphicBufferSource.cpp | 2 ++
  media/libstagefright/omx/OMXNodeInstance.cpp     | 7 +++++++
@@ -248,7 +248,7 @@ index 44c7edc..b108077 100644
          } else if (type == kMetadataBufferTypeGraphicBuffer) {
              GraphicBuffer *buffer;
              memcpy(&buffer, data + 4, sizeof(buffer));
-+#ifndef JAVA_HWC
++#ifndef CAPRI_HWC
              if (buffer != codecBuffer.mGraphicBuffer.get()) {
                  // should never happen
                  ALOGE("codecBufferEmptied: buffer is %p, expected %p",
@@ -267,7 +267,7 @@ index e3a1bd3..07bf1b2 100644
      }
 
      if (def.format.video.eColorFormat != OMX_COLOR_FormatAndroidOpaque) {
-+#ifdef JAVA_HWC
++#ifdef CAPRI_HWC
 +        // VC Encoder change OMX_COLOR_FormatAndroidOpaque to 0x7F000005
 +        if (def.format.video.eColorFormat != 0x7F000005) {
 +#endif
@@ -275,7 +275,7 @@ index e3a1bd3..07bf1b2 100644
                  "(AndroidOpaque) color format instead of %s(%#x)",
                  asString(def.format.video.eColorFormat), def.format.video.eColorFormat);
          return INVALID_OPERATION;
-+#ifdef JAVA_HWC
++#ifdef CAPRI_HWC
 +        }
 +#endif
      }
@@ -287,7 +287,7 @@ index e3a1bd3..07bf1b2 100644
 From 4c4eb3c3f68b3689e792f1ba8ee27850ba9b3f8c Mon Sep 17 00:00:00 2001
 From: Pawit Pornkitprasan <p.pawit@gmail.com>
 Date: Sun, 21 Dec 2014 15:25:33 +0700
-Subject: [PATCH 8/8] stagefright: JAVA_HWC: fix for miracast
+Subject: [PATCH 8/8] stagefright: CAPRI_HWC: fix for miracast
 
 Our encoder does not support OMX_Video_ControlRateConstant
 ---
@@ -304,7 +304,7 @@ index b9be274..342887d 100644
 
 -static OMX_VIDEO_CONTROLRATETYPE getBitrateMode(const sp<AMessage> &msg) {
 +static OMX_VIDEO_CONTROLRATETYPE getBitrateMode(const sp<AMessage> &msg, const AString &name) {
-+#ifdef JAVA_HWC
++#ifdef CAPRI_HWC
 +    // vc4 encoder only supports VBR
 +    if (strncmp(name.c_str(), "OMX.BRCM.vc4.encoder.", 21) == 0) {
 +        return OMX_Video_ControlRateVariable;
