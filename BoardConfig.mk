@@ -105,9 +105,6 @@ BOARD_HARDWARE_CLASS := hardware/samsung/cmhw/ $(LOCAL_PATH)/cmhw/
 # GPS
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
-# Compat
-# TARGET_USES_LOGD := false
-
 # jemalloc causes a lot of random crash on free()
 MALLOC_IMPL := dlmalloc
 
