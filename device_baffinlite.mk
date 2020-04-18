@@ -2,11 +2,9 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 $(call inherit-product-if-exists, vendor/samsung/baffinlite/baffinlite-vendor.mk)
 
-# FIXME: This allows only hdpi resources to be included, saving space.
-#        However, some bug caused holo apps' menu, checkboxes and
-#        other widgets to be transparent.
-# PRODUCT_AAPT_CONFIG := normal hdpi
-# PRODUCT_AAPT_PREF_CONFIG := hdpi
+PRODUCT_LOCALES += hdpi
+PRODUCT_AAPT_CONFIG := normal hdpi xhdpi
+PRODUCT_AAPT_PREF_CONFIG := hdpi
 
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
@@ -43,8 +41,13 @@ PRODUCT_PACKAGES += \
     audio.a2dp.default \
     audio.usb.default \
     audio.r_submix.default \
+    libaudio-resampler \
+    libstagefrighthw
 
 USE_CUSTOM_AUDIO_POLICY := 1
+
+# Lights module
+PRODUCT_PACKAGES += lights.java
 
 # Device-specific packages
 PRODUCT_PACKAGES += \

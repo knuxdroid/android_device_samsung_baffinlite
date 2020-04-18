@@ -28,8 +28,8 @@ etc/wifi/bcmdhd_sta.bin
 etc/wifi/nvram_net.txt
 etc/wifi/wpa_supplicant.conf
 lib/hw/alsa.default.so
-lib/hw/audio.primary.java.so
-lib/hw/audio.usb.java.so
+#lib/hw/audio.primary.java.so
+#lib/hw/audio.usb.java.so
 lib/hw/gps.java.so
 lib/hw/sensors.java.so
 lib/libasound.so
@@ -99,7 +99,6 @@ usr/share/alsa/alsa.conf
 lib/hw/camera.java.so
 lib/hw/gralloc.java.so
 lib/hw/hwcomposer.java.so
-vendor/lib/hw/lights.java.so
 vendor/lib/hw/power.java.so
 lib/drm/libdrmwvmplugin.so
 lib/drm/libomaplugin.so
