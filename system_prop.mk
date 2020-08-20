@@ -17,6 +17,9 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
     persist.sys.root_access=3 \
     ro.debuggable=1
 
+# Make sure ro.hardware is correct
+ADDITIONAL_DEFAULT_PROPERTIES += ro.hardware=java_ss_baffinlite
+
 # JNI
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.kernel.android.checkjni=0 \
@@ -41,3 +44,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # ART
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.dex2oat-flags=--no-watch-dog
+
+# KSM
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.ksm.default=1
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    camera2.portability.force_api=1 \
+    ro.telephony.call_ring.multiple=0
+    ro.telephony.call_ring=0

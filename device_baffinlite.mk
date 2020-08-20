@@ -13,7 +13,7 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:system/etc/media_codecs_google_video_le.xml \
     $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
     $(LOCAL_PATH)/configs/media_profiles.xml:system/etc/media_profiles.xml \
     $(LOCAL_PATH)/configs/audio_policy.conf:system/etc/audio_policy.conf
@@ -29,10 +29,14 @@ PRODUCT_COPY_FILES += \
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
-    fibmap.f2fs \
-    fsck.f2fs \
-    mkfs.f2fs \
+    make_ext4fs \
+    e2fsck \
     setup_fs
+
+# GPS/RIL
+PRODUCT_PACKAGES += \
+    libstlport \
+    libglgps-compat
 
 # Usb accessory
 PRODUCT_PACKAGES += \
@@ -43,25 +47,54 @@ PRODUCT_PACKAGES += \
     audio.a2dp.default \
     audio.usb.default \
     audio.r_submix.default \
+    libaudiopolicymanager
 
 USE_CUSTOM_AUDIO_POLICY := 1
+
+# Other modules
+PRODUCT_PACKAGES += \
+    lights.java \
+    libwvm_shim \
+    libstagefrighthw
 
 # Device-specific packages
 PRODUCT_PACKAGES += \
     SamsungServiceMode \
     Torch
 
+# IPv6 tethering
+#PRODUCT_PACKAGES += \
+#    ebtables \
+#    ethertypes
+
 # Charger
 PRODUCT_PACKAGES += \
     charger_res_images
 
+# KSM
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.ksm.default=1
+
 # Ramdisk
+PRODUCT_COPY_FILES += \
+    device/samsung/baffinlite/ramdisk/fstab.java_ss_baffinlite:root/fstab.java_ss_baffinlite \
+    device/samsung/baffinlite/ramdisk/init.bcm23550.usb.rc:root/init.bcm23550.usb.rc \
+    device/samsung/baffinlite/ramdisk/init.java_ss_baffinlite.rc:root/init.java_ss_baffinlite.rc \
+    device/samsung/baffinlite/ramdisk/init.java_ss_baffinlite.rc:root/init.lineage_baffinlite.rc \
+    device/samsung/baffinlite/ramdisk/init.log.rc:root/init.log.rc \
+    device/samsung/baffinlite/ramdisk/ueventd.java_ss_baffinlite.rc:root/ueventd.java_ss_baffinlite.rc
+
+# Snap Camera
 PRODUCT_PACKAGES += \
-    init.java_ss_baffinlite.rc \
-    init.bcm23550.usb.rc \
-    init.log.rc \
-    ueventd.java_ss_baffinlite.rc \
-    fstab.java_ss_baffinlite
+    Snap
+
+# Gello Browser
+PRODUCT_PACKAGES += \
+    Gello
+
+# Recorder
+PRODUCT_PACKAGES += \
+    Recorder
 
 # System Properties
 -include $(LOCAL_PATH)/system_prop.mk
@@ -115,3 +148,8 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 PRODUCT_NAME := full_baffinlite
 PRODUCT_DEVICE := baffinlite
+
+# Media
+PRODUCT_PROPERTY_OVERRIDES += \
+    media.stagefright.legacyencoder=true \
+    media.stagefright.less-secure=true

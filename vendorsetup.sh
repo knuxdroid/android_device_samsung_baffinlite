@@ -1,1 +1,1 @@
-add_lunch_combo cm_baffinlite-userdebug
+add_lunch_combo lineage_baffinlite-userdebug

@@ -1,6 +1,8 @@
 #
 # system.prop for baffinlite
 #
+ro.hardware = java_ss_baffinlite
+
 persist.brcm.log=none
 persist.brcm.cp_crash=none
 persist.brcm.ap_crash=none

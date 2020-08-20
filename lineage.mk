@@ -9,7 +9,7 @@ $(call inherit-product, device/samsung/baffinlite/device_baffinlite.mk)
 
 ## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := baffinlite
-PRODUCT_NAME := cm_baffinlite
+PRODUCT_NAME := lineage_baffinlite
 PRODUCT_BRAND := samsung
 PRODUCT_MANUFACTURER := samsung
 PRODUCT_MODEL := GT-I9060
