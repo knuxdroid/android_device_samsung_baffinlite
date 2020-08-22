@@ -33,9 +33,12 @@ PRODUCT_PACKAGES += \
     e2fsck \
     setup_fs
 
+# libstlport, required by multiple vendor binaries
+PRODUCT_PACKAGES += \
+    libstlport
+
 # GPS/RIL
 PRODUCT_PACKAGES += \
-    libstlport \
     libglgps-compat
 
 # Usb accessory
@@ -54,7 +57,8 @@ USE_CUSTOM_AUDIO_POLICY := 1
 # Other modules
 PRODUCT_PACKAGES += \
     lights.java \
-    libwvm_shim \
+    power.java \
+    libshim_wvm \
     libstagefrighthw
 
 # Device-specific packages
@@ -63,9 +67,9 @@ PRODUCT_PACKAGES += \
     Torch
 
 # IPv6 tethering
-#PRODUCT_PACKAGES += \
-#    ebtables \
-#    ethertypes
+PRODUCT_PACKAGES += \
+    ebtables \
+    ethertypes
 
 # Charger
 PRODUCT_PACKAGES += \
@@ -82,7 +86,8 @@ PRODUCT_COPY_FILES += \
     device/samsung/baffinlite/ramdisk/init.java_ss_baffinlite.rc:root/init.java_ss_baffinlite.rc \
     device/samsung/baffinlite/ramdisk/init.java_ss_baffinlite.rc:root/init.lineage_baffinlite.rc \
     device/samsung/baffinlite/ramdisk/init.log.rc:root/init.log.rc \
-    device/samsung/baffinlite/ramdisk/ueventd.java_ss_baffinlite.rc:root/ueventd.java_ss_baffinlite.rc
+    device/samsung/baffinlite/ramdisk/ueventd.java_ss_baffinlite.rc:root/ueventd.java_ss_baffinlite.rc \
+    device/samsung/baffinlite/ramdisk/ueventd.java_ss_baffinlite.rc:root/ueventd.lineage_baffinlite.rc
 
 # Snap Camera
 PRODUCT_PACKAGES += \
